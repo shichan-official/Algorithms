@@ -249,8 +249,9 @@ public class Kakero {
 	 */
 	public boolean doesTwoNumbersSumUpToInputNoDuplicate(int[] numbers, int input) {
 		int j = numbers.length - 1;
+		int i = 0;
 		quickSort(numbers, 0, numbers.length - 1);
-		for(int i = 0; i < j;) {
+		while(i < j) {
 			if(numbers[i] + numbers[j] == input) {
 				System.out.println(numbers[i]);
 				System.out.println(numbers[j]);
