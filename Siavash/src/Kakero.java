@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Kakero {
@@ -213,6 +215,58 @@ public class Kakero {
 			numbers[0] = temp;
 		}
 	}
+	
+	/**
+	 * Classic interview question: given an array of integers and a number, figure out if any two numbers in the array sums up to the input number.
+	 * This method solves the question in O(n) runtime; however, it also uses O(n) space since I use a HashSet to store the differences
+	 *
+	 * @param  numbers   an array of integers
+	 * @param  input   an integer 
+	 *  
+	 */
+	public boolean doesTwoNumbersSumUpToInputUsingHash(int[] numbers, int input) {
+		Set difference = new HashSet();
+		for (int number : numbers) {
+			difference.add(input - number);
+		}
+		for (int number : numbers) {
+			if(difference.contains(number)) {
+				System.out.println(number);
+				System.out.println(input - number);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Classic interview question: given an array of integers and a number, figure out if any two numbers in the array sums up to the input number.
+	 * This method solves the question in O(nLogn) runtime (since I sort the array first) but it is more efficient it terms space if quick sort or some in place sorting algorithm is used.
+	 *
+	 * @param  numbers   an array of integers
+	 * @param  input   an integer 
+	 *  
+	 */
+	public boolean doesTwoNumbersSumUpToInputNoDuplicate(int[] numbers, int input) {
+		int j = numbers.length - 1;
+		quickSort(numbers, 0, numbers.length - 1);
+		for(int i = 0; i < j;) {
+			if(numbers[i] + numbers[j] == input) {
+				System.out.println(numbers[i]);
+				System.out.println(numbers[j]);
+				return true;
+			} else if(numbers[i] + numbers[j] > input) {
+				j--;
+			} else {
+				i++;
+			}
+		}
+		return false;
+	}
+	
+	public int countInversions(int[] numbers) {
+		return 0;
+	}
 
 	/**
 	 * Playground!
@@ -224,11 +278,16 @@ public class Kakero {
 		Kakero test = new Kakero();
 		int[] numbers = {10,49,18,7,6,35,4,3,2,21};
 		//test.quickSort(numbers, 0, 9);
-		//test.printArray(numbers);
+		
 		//System.out.println(test.nthOrderNumber(numbers, 0, 9, 1));
+		
 		//test.buildMaxHeap(numbers, numbers.length);
-		test.heapSort(numbers);
-		test.printArray(numbers);
+		
+		//test.heapSort(numbers);
+		
+		//test.printArray(numbers);
+		
+		test.doesTwoNumbersSumUpToInputNoDuplicate(numbers, 7);
 	}
 
 }
