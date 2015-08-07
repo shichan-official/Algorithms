@@ -2,6 +2,12 @@ import java.util.Arrays;
 
 
 public class Kakero {
+	
+	/**
+	 * Merge sort for an array of integers 
+	 *
+	 * @param  numbers  an array of integers
+	 */
 	public int[] mergeSort(int[] numbers) {
 		if(numbers.length == 1) {
 			return numbers;
@@ -14,6 +20,12 @@ public class Kakero {
 		return merged;
 	}
 	
+	/**
+	 * Merge step for merge sort: merges two sorted sub arrays together
+	 *
+	 * @param  firstHalf   an array of sorted integers
+	 * @param  secondHalf  an array of sorted integers
+	 */
 	public int[] merge(int[] firstHalf, int[] secondHalf) {
 		int[] merged        = new int[firstHalf.length + secondHalf.length];
 		int firstHalfIndex  = 0;
@@ -40,6 +52,13 @@ public class Kakero {
 		return merged;
 	}
 	
+	/**
+	 * Quick sort using first element as pivot in each partitioning
+	 *
+	 * @param  numbers   an array of integers
+	 * @param  low   start index
+	 * @param  high   end index
+	 */
 	public void quickSort(int[] numbers, int low, int high) {
 		int lowIndex  = low;
 		int highIndex = high;
@@ -59,7 +78,6 @@ public class Kakero {
                 highIndex--;
             }
 		}
-		System.out.println(highIndex);
 		if (low < highIndex) {
 			quickSort(numbers, low, highIndex);
 		}   
@@ -68,6 +86,14 @@ public class Kakero {
         }   
 	}
 	
+	/**
+	 * Finds the nth largest number in an array. It's implemented based on quick sort's algorithm 
+	 *
+	 * @param  numbers   an array of integers
+	 * @param  low   start index
+	 * @param  high   end index
+	 * @param  order   n: the order we are looking for
+	 */
 	public int nthOrderNumber(int[] numbers, int low, int high, int order) {
 		int lowIndex  = low;
 		int highIndex = high;
@@ -97,6 +123,13 @@ public class Kakero {
 		}
 	}
 	
+	/**
+	 * Experimental code for quick sort's partitioning 
+	 *
+	 * @param  numbers   an array of integers
+	 * @param  start   start index
+	 * @param  end   end index
+	 */
 	public int quickSortPartition(int[] numbers, int start, int end) {
 		int partition = numbers[start];
 		int i = start + 1;
@@ -111,10 +144,14 @@ public class Kakero {
 		int temp = numbers[start];
 		numbers[start] = numbers[i - 1];
 		numbers[i - 1] = temp;
-		System.out.println(i - 1);
 		return i - 1;
 	}
 	
+	/**
+	 * Prints out an array of integers in one line separated by comma
+	 *
+	 * @param  numbers   an array of integers
+	 */
 	public void printArray(int[] array) {
 		for(int i = 0; i < array.length - 1; i++) {
 			System.out.print(array[i] + ", ");
@@ -122,12 +159,28 @@ public class Kakero {
 		System.out.println(array[array.length - 1]);
 	}
 	
+	/**
+	 * Rearranges elements in an array of integers to represent a max heap.
+	 * Although we wont need to pass the length when making the heap, I added the parameter since I need it for heap sort
+	 *
+	 * @param  numbers   an array of integers
+	 * @param  length   length of array
+	 *  
+	 */
 	public void buildMaxHeap(int[] numbers, int length) {
 		for(int i = numbers.length - 1; i >= 0; i--) {
 			maxHeapify(numbers, i, length);
 		}
 	}
 	
+	/**
+	 * Max heapifies an array. Used for buildHeap and heapSort
+	 *
+	 * @param  numbers   an array of integers
+	 * @param  index   specific index that we are visiting and wanting to heapify
+	 * @param  length   length of array
+	 *  
+	 */
 	public void maxHeapify(int[] numbers, int index, int length) {
 		int left   = 2 * index + 1;
 		int right  = 2 * index + 2;
@@ -146,6 +199,12 @@ public class Kakero {
 		}
 	}
 	
+	/**
+	 * Heap sort for an array of integer
+	 *
+	 * @param  numbers   an array of integers
+	 *  
+	 */
 	public void heapSort(int[] numbers) {
 		for(int i = numbers.length - 1; i >= 0; i--) {
 			buildMaxHeap(numbers, i + 1);
@@ -155,6 +214,12 @@ public class Kakero {
 		}
 	}
 
+	/**
+	 * Playground!
+	 *
+	 * @param  args
+	 *  
+	 */
 	public static void main(String[] args) {
 		Kakero test = new Kakero();
 		int[] numbers = {10,49,18,7,6,35,4,3,2,21};
