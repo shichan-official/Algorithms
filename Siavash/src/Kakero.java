@@ -1,6 +1,7 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.text.Collator;
+import java.util.*;
 
 
 public class Kakero {
@@ -152,9 +153,21 @@ public class Kakero {
 	/**
 	 * Prints out an array of integers in one line separated by comma
 	 *
-	 * @param  numbers   an array of integers
+	 * @param  array   an array of integers
 	 */
 	public void printArray(int[] array) {
+		for(int i = 0; i < array.length - 1; i++) {
+			System.out.print(array[i] + ", ");
+		}
+		System.out.println(array[array.length - 1]);
+	}
+	
+	/**
+	 * Prints out an array of integers in one line separated by comma
+	 *
+	 * @param  words   an array of integers
+	 */
+	public void printArray(String[] array) {
 		for(int i = 0; i < array.length - 1; i++) {
 			System.out.print(array[i] + ", ");
 		}
@@ -265,8 +278,104 @@ public class Kakero {
 		return false;
 	}
 	
+	/**
+	 * Count inversions problem
+	 *
+	 * @param  numbers   an array of integers
+	 *  
+	 */
 	public int countInversions(int[] numbers) {
+		// TODO: Implementation!
 		return 0;
+	}
+	
+	/**
+	 * Find shortest string in the dictionary that includes all the giving strings
+	 *
+	 * @param  word   a String
+	 * @param  dictionary   an array of Strings
+	 *  
+	 */
+	public String shortestWordIncludingStrings(String word, String[] dictionary) {
+		// TODO: does not work for edge case when input is not consecutively in the trie
+		// Example: input "art" will return nothing even if we have "tarzan" in dictionary because "tarzan" is represented as "aanrtz" in trie 
+		word = sortStringAlphabetically(word);
+		quickSortStringsByLength(dictionary, 0, 9);
+		Trie trieDictionary = new Trie();
+		HashMap<String, String> weirdDictionary = new HashMap<String, String>();
+		for(int i = 0; i < dictionary.length; i++) {
+			String sortedString = sortStringAlphabetically(dictionary[i]);
+			trieDictionary.addString(sortedString);
+			weirdDictionary.put(sortedString, dictionary[i]);
+		}
+		
+		try {
+			trieDictionary.getParentWords(word).Print();
+		} catch(NullPointerException e) {
+			return "No word found";
+		}
+		
+		if(Trie.children.size() > 0) {
+			String shortestWordKey = Trie.children.get(0);
+			int length = shortestWordKey.length();
+			shortestWordKey = shortestWordKey.replace("\n", "").replace("\r", "");
+			for(String child : Trie.children) {
+				if(child.length() < length) {
+					length = child.length();
+					shortestWordKey = child;
+					shortestWordKey = shortestWordKey.replace("\n", "").replace("\r", "");
+				}
+			}
+			return weirdDictionary.get(word + shortestWordKey).toString();
+		} else {
+			return "No word found";
+		}
+	}
+	
+	/**
+	 * Quick sort Strings by length using first element as pivot in each partitioning
+	 *
+	 * @param  words   an array of Strings
+	 * @param  low   start index
+	 * @param  high   end index
+	 */
+	public void quickSortStringsByLength(String[] words, int low, int high) {
+		int lowIndex  = low;
+		int highIndex = high;
+		int pivot     = words[low + (high - low)/2].length();
+		while(lowIndex <= highIndex) {
+			while (words[lowIndex].length() < pivot) {
+				lowIndex++;
+            }
+            while (words[highIndex].length() > pivot) {
+            	highIndex--;
+            }
+            if (lowIndex <= highIndex) {
+            	String temp = words[lowIndex];
+            	words[lowIndex] = words[highIndex];
+            	words[highIndex] = temp;
+                lowIndex++;
+                highIndex--;
+            }
+		}
+		if (low < highIndex) {
+			quickSortStringsByLength(words, low, highIndex);
+		}   
+        if (lowIndex < high) {
+        	quickSortStringsByLength(words, lowIndex, high);
+        }   
+	}
+	
+	public String sortStringAlphabetically(String word) {
+		Collator collator = Collator.getInstance(new Locale("en", "EN"));
+		String[] wordArray= word.split("");
+		Arrays.sort(wordArray, collator);
+		String sortedWord = "";
+		for (int i = 0; i < wordArray.length; i++)
+		{
+			sortedWord += wordArray[i];
+		}
+		return sortedWord;
 	}
 
 	/**
@@ -277,7 +386,9 @@ public class Kakero {
 	 */
 	public static void main(String[] args) {
 		Kakero test = new Kakero();
-		int[] numbers = {10,49,18,7,6,35,4,3,2,21};
+		//int[] numbers = {10,49,18,7,6,35,4,3,2,21};
+		String[] dictionary = {"cat","dogs","feedback","tarzan","computer","okonomiyaki","test","back","cab","nicest"};
+		String word = "aa";
 		//test.quickSort(numbers, 0, 9);
 		
 		//System.out.println(test.nthOrderNumber(numbers, 0, 9, 1));
@@ -288,7 +399,9 @@ public class Kakero {
 		
 		//test.printArray(numbers);
 		
-		test.doesTwoNumbersSumUpToInputNoDuplicate(numbers, 7);
+		//test.doesTwoNumbersSumUpToInputNoDuplicate(numbers, 7);
+		
+		System.out.println(test.shortestWordIncludingStrings(word, dictionary));
 	}
 
 }
