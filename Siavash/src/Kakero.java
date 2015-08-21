@@ -297,8 +297,9 @@ public class Kakero {
 	 *  
 	 */
 	public String shortestWordIncludingStrings(String word, String[] dictionary) {
-		// TODO: does not work for edge case when input is not consecutively in the trie
-		// Example: input "art" will return nothing even if we have "tarzan" in dictionary because "tarzan" is represented as "aanrtz" in trie 
+		if (word.length() <= 1) {
+			return word;
+		}
 		word = sortStringAlphabetically(word);
 		quickSortStringsByLength(dictionary, 0, 9);
 		Trie trieDictionary = new Trie();
@@ -308,25 +309,43 @@ public class Kakero {
 			trieDictionary.addString(sortedString);
 			weirdDictionary.put(sortedString, dictionary[i]);
 		}
-		
+		ArrayList<String> candidates = new ArrayList<>();
 		try {
-			trieDictionary.getParentWords(word).Print();
+			trieDictionary.getParentWords(word.charAt(0) + "").Print();
+			int index;
+			boolean isCandidate = true;
+			for(String candidate : Trie.children) {
+				candidate = candidate.replace("\n", "").replace("\r", "");
+				String originalCandidate = word.charAt(0) + candidate.replace("\n", "").replace("\r", "");
+				for(int i = 1; i < word.length(); i++) {
+					index = candidate.indexOf(word.charAt(i));
+					if(index == -1) {
+						isCandidate = false;
+						break;
+					} else {
+						candidate =  candidate.substring(0,index) + "" + candidate.substring(index + 1);
+					}
+				}
+				if(isCandidate) {
+					candidates.add(originalCandidate);
+				} else {
+					isCandidate = true;
+				}
+			}
 		} catch(NullPointerException e) {
 			return "No word found";
 		}
 		
-		if(Trie.children.size() > 0) {
-			String shortestWordKey = Trie.children.get(0);
+		if(candidates.size() > 0) {
+			String shortestWordKey = candidates.get(0);
 			int length = shortestWordKey.length();
-			shortestWordKey = shortestWordKey.replace("\n", "").replace("\r", "");
-			for(String child : Trie.children) {
+			for(String child : candidates) {
 				if(child.length() < length) {
 					length = child.length();
 					shortestWordKey = child;
-					shortestWordKey = shortestWordKey.replace("\n", "").replace("\r", "");
 				}
 			}
-			return weirdDictionary.get(word + shortestWordKey).toString();
+			return weirdDictionary.get(shortestWordKey).toString();
 		} else {
 			return "No word found";
 		}
@@ -387,8 +406,8 @@ public class Kakero {
 	public static void main(String[] args) {
 		Kakero test = new Kakero();
 		//int[] numbers = {10,49,18,7,6,35,4,3,2,21};
-		String[] dictionary = {"cat","dogs","feedback","tarzan","computer","okonomiyaki","test","back","cab","nicest"};
-		String word = "aa";
+		String[] dictionary = {"cat","dogs","feedback","tarzan","computer","okonomiyaki","test","back","cabana","nicest"};
+		String word = "aaa";
 		//test.quickSort(numbers, 0, 9);
 		
 		//System.out.println(test.nthOrderNumber(numbers, 0, 9, 1));
