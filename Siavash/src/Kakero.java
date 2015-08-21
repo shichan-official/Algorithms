@@ -13,11 +13,9 @@ public class Kakero {
 		if(numbers.length == 1) {
 			return numbers;
 		}
-		int[] firstHalf     = Arrays.copyOfRange(numbers, 0, numbers.length/2);
-		int[] secondHalf    = Arrays.copyOfRange(numbers, numbers.length/2, numbers.length);
-		int[] newFirstHalf  = mergeSort(firstHalf);
-		int[] newSecondHalf = mergeSort(secondHalf);
-		int[] merged = merge(newFirstHalf, newSecondHalf);
+		int[] sortedFirstHalf  = mergeSort(Arrays.copyOfRange(numbers, 0, numbers.length/2));
+		int[] sortedSecondHalf = mergeSort(Arrays.copyOfRange(numbers, numbers.length/2, numbers.length));
+		int[] merged = merge(sortedFirstHalf, sortedSecondHalf);
 		return merged;
 	}
 	
@@ -43,11 +41,9 @@ public class Kakero {
 			} else if(firstHalfIndex < firstHalf.length) {
 				merged[i] = firstHalf[firstHalfIndex];
 				firstHalfIndex++;
-			} else if(secondHalfIndex < secondHalf.length) {
+			} else { // secondHalfIndex < secondHalf.length
 				merged[i] = secondHalf[secondHalfIndex];
 				secondHalfIndex++;
-			} else {
-				break;
 			}
 		}
 		return merged;
@@ -403,9 +399,10 @@ public class Kakero {
 	 */
 	public static void main(String[] args) {
 		Kakero test = new Kakero();
-		//int[] numbers = {10,49,18,7,6,35,4,3,2,21};
-		String[] dictionary = {"cat","dogs","feedback","tarzan","computer","okonomiyaki","test","back","cabana","nicest"};
-		String word = "aaa";
+		int[] numbers = {10,49,18,7,6,35,4,3,2,2,21};
+		String[] dictionary = {"cats","tac","feedback","tarzanz","computer","okonomiyaki","test","back","cabana","nicest"};
+		String word = "zz";
+		test.printArray(test.mergeSort(numbers));
 		//test.quickSort(numbers, 0, 9);
 		
 		//System.out.println(test.nthOrderNumber(numbers, 0, 9, 1));
@@ -418,7 +415,7 @@ public class Kakero {
 		
 		//test.doesTwoNumbersSumUpToInputNoDuplicate(numbers, 7);
 		
-		System.out.println(test.shortestWordIncludingStrings(word, dictionary));
+		//System.out.println(test.shortestWordIncludingStrings(word, dictionary));
 	}
 
 }
