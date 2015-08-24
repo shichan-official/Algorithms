@@ -452,6 +452,19 @@ public class Kakero {
 	}
 
 	/**
+	 * Calculates nth Fibonacci number using Binet's formula
+	 *
+	 * @param n
+	 *            nth Fibonacci number index
+	 */
+	public int fibonacci(int n) {
+		Double fib = new Double((Math.pow((1 + Math.sqrt(5)), n) - Math.pow(
+				(1 - Math.sqrt(5)), n)) / (Math.pow(2, n) * Math.sqrt(5)));
+		System.out.println(fib.intValue());
+		return fib.intValue();
+	}
+
+	/**
 	 * Playground!
 	 *
 	 * @param args
@@ -477,12 +490,22 @@ public class Kakero {
 
 		// test.doesTwoNumbersSumUpToInputNoDuplicate(numbers, 7);
 
-		//System.out.println(test.shortestWordIncludingStrings(word, dictionary));
+		// System.out.println(test.shortestWordIncludingStrings(word,
+		// dictionary));
 
 		// test.quickSort(numbers, 0, 9);
 		// System.out.println(test.binarySearch(numbers, 10));
 
 		// System.out.println(test.isStringContainsAnother("bcabz", "abbc"));
+
+		// test.fibonacci(0);
+		// test.fibonacci(1);
+		// test.fibonacci(2);
+		// test.fibonacci(3);
+		// test.fibonacci(4);
+		// test.fibonacci(5);
+		// test.fibonacci(6);
+		// test.fibonacci(40);
 	}
 
 }
