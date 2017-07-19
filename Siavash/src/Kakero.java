@@ -1,5 +1,8 @@
 import java.text.Collator;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 
 public class Kakero {
 
@@ -7,16 +10,14 @@ public class Kakero {
 	 * Merge sort for an array of integers
 	 *
 	 * @param numbers
-	 *            an array of integers
+	 *           an array of integers
 	 */
 	public int[] mergeSort(int[] numbers) {
 		if (numbers.length == 1) {
 			return numbers;
 		}
-		int[] sortedFirstHalf = mergeSort(Arrays.copyOfRange(numbers, 0,
-				numbers.length / 2));
-		int[] sortedSecondHalf = mergeSort(Arrays.copyOfRange(numbers,
-				numbers.length / 2, numbers.length));
+		int[] sortedFirstHalf = mergeSort(Arrays.copyOfRange(numbers, 0, numbers.length / 2));
+		int[] sortedSecondHalf = mergeSort(Arrays.copyOfRange(numbers, numbers.length / 2, numbers.length));
 		int[] merged = merge(sortedFirstHalf, sortedSecondHalf);
 		return merged;
 	}
@@ -25,17 +26,16 @@ public class Kakero {
 	 * Merge step for merge sort: merges two sorted sub arrays together
 	 *
 	 * @param firstHalf
-	 *            an array of sorted integers
+	 *           an array of sorted integers
 	 * @param secondHalf
-	 *            an array of sorted integers
+	 *           an array of sorted integers
 	 */
 	public int[] merge(int[] firstHalf, int[] secondHalf) {
 		int[] merged = new int[firstHalf.length + secondHalf.length];
 		int firstHalfIndex = 0;
 		int secondHalfIndex = 0;
 		for (int i = 0; i < merged.length; i++) {
-			if (firstHalfIndex < firstHalf.length
-					&& secondHalfIndex < secondHalf.length) {
+			if (firstHalfIndex < firstHalf.length && secondHalfIndex < secondHalf.length) {
 				if (firstHalf[firstHalfIndex] < secondHalf[secondHalfIndex]) {
 					merged[i] = firstHalf[firstHalfIndex];
 					firstHalfIndex++;
@@ -58,11 +58,11 @@ public class Kakero {
 	 * Quick sort using first element as pivot in each partitioning
 	 *
 	 * @param numbers
-	 *            an array of integers
+	 *           an array of integers
 	 * @param low
-	 *            start index
+	 *           start index
 	 * @param high
-	 *            end index
+	 *           end index
 	 */
 	public void quickSort(int[] numbers, int low, int high) {
 		int lowIndex = low;
@@ -92,17 +92,16 @@ public class Kakero {
 	}
 
 	/**
-	 * Finds the nth largest number in an array. It's implemented based on quick
-	 * sort's algorithm
+	 * Finds the nth largest number in an array. It's implemented based on quick sort's algorithm
 	 *
 	 * @param numbers
-	 *            an array of integers
+	 *           an array of integers
 	 * @param low
-	 *            start index
+	 *           start index
 	 * @param high
-	 *            end index
+	 *           end index
 	 * @param order
-	 *            n: the order we are looking for
+	 *           n: the order we are looking for
 	 */
 	public int nthOrderNumber(int[] numbers, int low, int high, int order) {
 		int lowIndex = low;
@@ -137,11 +136,11 @@ public class Kakero {
 	 * Experimental code for quick sort's partitioning
 	 *
 	 * @param numbers
-	 *            an array of integers
+	 *           an array of integers
 	 * @param start
-	 *            start index
+	 *           start index
 	 * @param end
-	 *            end index
+	 *           end index
 	 */
 	public int quickSortPartition(int[] numbers, int start, int end) {
 		int partition = numbers[start];
@@ -164,7 +163,7 @@ public class Kakero {
 	 * Prints out an array of integers in one line separated by comma
 	 *
 	 * @param array
-	 *            an array of integers
+	 *           an array of integers
 	 */
 	public void printArray(int[] array) {
 		for (int i = 0; i < array.length - 1; i++) {
@@ -177,7 +176,7 @@ public class Kakero {
 	 * Prints out an array of integers in one line separated by comma
 	 *
 	 * @param words
-	 *            an array of integers
+	 *           an array of integers
 	 */
 	public void printArray(String[] array) {
 		for (int i = 0; i < array.length - 1; i++) {
@@ -187,14 +186,13 @@ public class Kakero {
 	}
 
 	/**
-	 * Rearranges elements in an array of integers to represent a max heap.
-	 * Although we wont need to pass the length when making the heap, I added
-	 * the parameter since I need it for heap sort
+	 * Rearranges elements in an array of integers to represent a max heap. Although we wont need to pass the length when
+	 * making the heap, I added the parameter since I need it for heap sort
 	 *
 	 * @param numbers
-	 *            an array of integers
+	 *           an array of integers
 	 * @param length
-	 *            length of array
+	 *           length of array
 	 * 
 	 */
 	public void buildMaxHeap(int[] numbers, int length) {
@@ -207,11 +205,11 @@ public class Kakero {
 	 * Max heapifies an array. Used for buildHeap and heapSort
 	 *
 	 * @param numbers
-	 *            an array of integers
+	 *           an array of integers
 	 * @param index
-	 *            specific index that we are visiting and wanting to heapify
+	 *           specific index that we are visiting and wanting to heapify
 	 * @param length
-	 *            length of array
+	 *           length of array
 	 * 
 	 */
 	public void maxHeapify(int[] numbers, int index, int length) {
@@ -236,7 +234,7 @@ public class Kakero {
 	 * Heap sort for an array of integer
 	 *
 	 * @param numbers
-	 *            an array of integers
+	 *           an array of integers
 	 * 
 	 */
 	public void heapSort(int[] numbers) {
@@ -249,15 +247,14 @@ public class Kakero {
 	}
 
 	/**
-	 * Classic interview question: given an array of integers and a number,
-	 * figure out if any two numbers in the array sums up to the input number.
-	 * This method solves the question in O(n) runtime; however, it also uses
-	 * O(n) space since I use a HashSet to store the differences
+	 * Classic interview question: given an array of integers and a number, figure out if any two numbers in the array
+	 * sums up to the input number. This method solves the question in O(n) runtime; however, it also uses O(n) space
+	 * since I use a HashSet to store the differences
 	 *
 	 * @param numbers
-	 *            an array of integers
+	 *           an array of integers
 	 * @param input
-	 *            an integer
+	 *           an integer
 	 * 
 	 */
 	public boolean doesTwoNumbersSumUpToInputUsingHash(int[] numbers, int input) {
@@ -276,20 +273,17 @@ public class Kakero {
 	}
 
 	/**
-	 * Classic interview question: given an array of integers and a number,
-	 * figure out if any two numbers in the array sums up to the input number.
-	 * This method solves the question in O(nLogn) runtime (since I sort the
-	 * array first) but it is more efficient it terms space if quick sort or
-	 * some in place sorting algorithm is used.
+	 * Classic interview question: given an array of integers and a number, figure out if any two numbers in the array
+	 * sums up to the input number. This method solves the question in O(nLogn) runtime (since I sort the array first)
+	 * but it is more efficient it terms space if quick sort or some in place sorting algorithm is used.
 	 *
 	 * @param numbers
-	 *            an array of integers
+	 *           an array of integers
 	 * @param input
-	 *            an integer
+	 *           an integer
 	 * 
 	 */
-	public boolean doesTwoNumbersSumUpToInputNoDuplicate(int[] numbers,
-			int input) {
+	public boolean doesTwoNumbersSumUpToInputNoDuplicate(int[] numbers, int input) {
 		int j = numbers.length - 1;
 		int i = 0;
 		quickSort(numbers, 0, numbers.length - 1);
@@ -311,7 +305,7 @@ public class Kakero {
 	 * Count inversions problem
 	 *
 	 * @param numbers
-	 *            an array of integers
+	 *           an array of integers
 	 * 
 	 */
 	public int countInversions(int[] numbers) {
@@ -320,13 +314,12 @@ public class Kakero {
 	}
 
 	/**
-	 * Find shortest string in the dictionary that includes all the giving
-	 * strings
+	 * Find shortest string in the dictionary that includes all the giving strings
 	 *
 	 * @param word
-	 *            a String
+	 *           a String
 	 * @param dictionary
-	 *            an array of Strings
+	 *           an array of Strings
 	 * 
 	 */
 	public String shortestWordIncludingStrings(String word, String[] dictionary) {
@@ -354,9 +347,9 @@ public class Kakero {
 	 * Binary search
 	 *
 	 * @param numbers
-	 *            an array of sorted integers
+	 *           an array of sorted integers
 	 * @param key
-	 *            key value we would like to look up
+	 *           key value we would like to look up
 	 */
 	public boolean binarySearch(int[] numbers, int key) {
 		int low = 0;
@@ -375,14 +368,13 @@ public class Kakero {
 	}
 
 	/**
-	 * Returns true if a given reference contains another String. The difference
-	 * between this and Java's Contains function is that this doesn't consider
-	 * the exact character ordering of the key
+	 * Returns true if a given reference contains another String. The difference between this and Java's Contains
+	 * function is that this doesn't consider the exact character ordering of the key
 	 *
 	 * @param reference
-	 *            reference String
+	 *           reference String
 	 * @param key
-	 *            key String that we want to lookup
+	 *           key String that we want to lookup
 	 */
 	public boolean isStringContainsAnother(String reference, String key) {
 		for (int i = 0; i < key.length(); i++) {
@@ -390,22 +382,20 @@ public class Kakero {
 			if (index == -1) {
 				return false;
 			}
-			reference = reference.substring(0, index)
-					+ reference.substring(index + 1);
+			reference = reference.substring(0, index) + reference.substring(index + 1);
 		}
 		return true;
 	}
 
 	/**
-	 * Quick sort Strings by length using first element as pivot in each
-	 * partitioning
+	 * Quick sort Strings by length using first element as pivot in each partitioning
 	 *
 	 * @param words
-	 *            an array of Strings
+	 *           an array of Strings
 	 * @param low
-	 *            start index
+	 *           start index
 	 * @param high
-	 *            end index
+	 *           end index
 	 */
 	public void quickSortStringsByLength(String[] words, int low, int high) {
 		int lowIndex = low;
@@ -438,7 +428,7 @@ public class Kakero {
 	 * Rearranges characters in a String and sorts it alphabetically
 	 *
 	 * @param words
-	 *            an array of Strings
+	 *           an array of Strings
 	 */
 	public String sortStringAlphabetically(String word) {
 		Collator collator = Collator.getInstance(new Locale("en", "EN"));
@@ -452,6 +442,66 @@ public class Kakero {
 	}
 
 	/**
+	 * Find the sentence with most number of words
+	 *
+	 * @param text
+	 *           a String
+	 */
+	public int maxWords(String text) {
+		int max = 0;
+		String[] sentences = text.split("\\.|\\?|\\!");
+		for (String sentence : sentences) {
+			String[] words = sentence.trim().split("\\s+");
+			if (words.length == 1 && words[0].equals("")) { // this is the only case that we can have an empty string as a word
+				continue;
+			} else {
+				if (words.length > max) {
+					max = words.length;
+				}
+			}
+		}
+		return max;
+	}
+
+	/**
+	 * Can we sort the given array with only one swap
+	 *
+	 * @param numbers
+	 *           array of integers
+	 */
+	public boolean oneSwap(int[] numbers) {
+		int count = 0;
+		int firstIndex = -1;
+		int secondIndex = -1;
+
+		for (int i = 0; i < numbers.length - 2; i++) { // note that we do length - 2 to avoid array out of bound in last loop
+			if (numbers[i] > numbers[i + 1]) {
+				count++;
+				if (count == 1) {
+					firstIndex = i;
+				} else if (count == 2) {
+					secondIndex = i + 1; // in this case we want the next element (smaller one)
+				} else { // there are 3 or more cases of numbers[i] > numbers[i + 1] which means we definitely need more than one swap 
+					System.out.println("blah");
+					return false;
+				}
+			}
+		}
+		// at this point count is either 0, 1, or 2
+		if (count < 2) { // for 0 array is already sorted, for 1 we do a single swap
+			return true;
+		} else { // exactly 2 cases, need to check whether one swap will work
+			if (numbers[firstIndex] >= numbers[secondIndex - 1] && numbers[firstIndex] <= numbers[secondIndex + 1] // note that secondIndex can never be the last index so no need to check for out of bound
+					&& (firstIndex == 0 || numbers[secondIndex] >= numbers[firstIndex - 1]) // doing firstIndex == 0 to avoid out of bound exception
+					&& numbers[secondIndex] <= numbers[firstIndex + 1]) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
+	/**
 	 * Playground!
 	 *
 	 * @param args
@@ -459,11 +509,10 @@ public class Kakero {
 	 */
 	public static void main(String[] args) {
 		Kakero test = new Kakero();
-		int[] numbers = { 10, 49, 18, 7, 6, 35, 4, 3, 2, 2, 21 };
-		String[] dictionary = { "cats", "tac", "feedback", "tarzanz",
-				"computer", "okonomiyaki", "test", "back", "cabana", "nicest",
-				"cab" };
-		String word = "bac";
+		//int[] numbers = { 10, 49, 18, 7, 6, 35, 4, 3, 2, 2, 21 };
+		//String[] dictionary = { "cats", "tac", "feedback", "tarzanz", "computer", "okonomiyaki", "test", "back", "cabana",
+		//		"nicest", "cab" };
+		//String word = "bac";
 		// test.printArray(test.mergeSort(numbers));
 		// test.quickSort(numbers, 0, 9);
 
@@ -483,6 +532,27 @@ public class Kakero {
 		// System.out.println(test.binarySearch(numbers, 10));
 
 		// System.out.println(test.isStringContainsAnother("bcabz", "abbc"));
+
+		//System.out.println(test.maxWords("We test coders. Give us a try?"));
+		//System.out.println(test.maxWords("Forgot CVs..Save time . x x "));
+
+		//int[] numbers = { 0, 5, 3, 3, 1, 7, 9 }; // normal one swap with two A[i] > A[i+1] case; should return true 
+		//System.out.println(test.oneSwap(numbers));
+
+		//int[] numbers = { 5, 3, 3, 1, 7, 9 }; // normal one swap with two A[i] > A[i+1] case and firstIndex is 0 and we covered out of bound; should return true
+		//System.out.println(test.oneSwap(numbers));
+
+		//int[] numbers = { 10, 3, 6, 4, 7 }; // two A[i] > A[i+1] case and one swap wont work; should return false
+		//System.out.println(test.oneSwap(numbers));
+
+		//int[] numbers = { 1, 3, 5, 3, 7 }; // one occurrence of A[i] > A[i+1]; should return true
+		//System.out.println(test.oneSwap(numbers));
+
+		//int[] numbers = { 1, 3, 3, 5, 7 }; // no of A[i] > A[i+1], array already sorted; should return true
+		//System.out.println(test.oneSwap(numbers));
+
+		//int[] numbers = { 1, 3, 2, 4, 3, 4, 3 }; // more than two occurrence of A[i] > A[i+1]; should return false
+		//System.out.println(test.oneSwap(numbers));
 	}
 
 }
